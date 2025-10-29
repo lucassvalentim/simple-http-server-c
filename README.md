@@ -4,7 +4,7 @@ Este projeto implementa uma comunicação cliente-servidor em C utilizando **soc
 
 ---
 
-## 📁 Estrutura do Repositório
+## Estrutura do Repositório
 
 ```
 client-server/
@@ -17,7 +17,7 @@ client-server/
 
 ---
 
-## ⚙️ Compilação
+## Compilação
 
 Para compilar o projeto, execute o comando abaixo na raiz do repositório:
 
@@ -36,15 +36,15 @@ gcc -o server/server server/server.c
 
 ---
 
-## 🚀 Execução
+## Execução
 
 ### 1. Inicie o servidor HTTP
 
 ```bash
-./server/server site
+./server/main ./site
 ```
 
-O argumento `site` é o diretório de onde os arquivos HTML serão servidos.
+O argumento `./site` é o diretório de onde os arquivos HTML serão servidos.
 
 Por padrão, o servidor escuta na **porta 3000**.
 
@@ -56,14 +56,14 @@ Caso contrário, o servidor gera automaticamente uma listagem dos arquivos dispo
 ### 2. Execute o cliente HTTP
 
 ```bash
-./client/client 127.0.0.1 3000
+./client/main http://<host>[:porta]/<arquivo>
 ```
 
 O cliente se conecta ao servidor na porta especificada e envia uma requisição HTTP GET simples, exibindo a resposta recebida.
 
 ---
 
-## 🧠 Funcionamento Interno
+## Funcionamento Interno
 
 - O **servidor** cria um socket, aguarda conexões e responde com o conteúdo solicitado.
 - O **cliente** cria um socket, se conecta ao servidor e envia uma requisição no formato HTTP/1.1.
@@ -71,26 +71,14 @@ O cliente se conecta ao servidor na porta especificada e envia uma requisição 
 
 ---
 
-## 📄 Exemplo de Funcionamento
-
-1. Crie um arquivo `index.html` dentro da pasta `site`:
-
-   ```html
-   <h1>Bem-vindo ao meu servidor HTTP!</h1>
-   ```
-2. Execute o servidor e o cliente conforme instruções acima.
-3. O cliente receberá como resposta o conteúdo do arquivo HTML.
-
----
-
-## 🧰 Requisitos
+## Requisitos
 
 - GCC ou Clang
 - Sistema compatível com POSIX (Linux ou macOS)
 
 ---
 
-## ✍️ Autor: Lucas Henrique Valentim Rocha
+## Autor: Lucas Henrique Valentim Rocha
 
 Projeto desenvolvido como exemplo didático de comunicação **Cliente-Servidor** via **sockets TCP** e protocolo **HTTP**.
 
