@@ -29,7 +29,7 @@ void send_response(int client_fd, const char *status, const char *content_type, 
 void send_file(int client_fd, const char *path) {
     FILE *file = fopen(path, "r");
     if (!file) {
-        send_response(client_fd, "404 Not Found", "text/html", "<h1>404 - Arquivo não encontrado</h1>");
+        send_response(client_fd, "404 Not Found", "text/html", "<h1>404 - Arquivo nao encontrado</h1>");
         return;
     }
 
@@ -55,7 +55,7 @@ void send_file(int client_fd, const char *path) {
 void send_directory_listing(int client_fd, const char *dir_path) {
     DIR *dir = opendir(dir_path);
     if (!dir) {
-        send_response(client_fd, "500 Internal Server Error", "text/html", "<h1>Erro ao abrir diretório</h1>");
+        send_response(client_fd, "500 Internal Server Error", "text/html", "<h1>Erro ao abrir diretorio</h1>");
         return;
     }
 
@@ -97,7 +97,7 @@ void handle_client(int client_fd, const char *base_dir) {
     sscanf(buffer, "%s %s", method, path);
 
     if (strcmp(method, "GET") != 0) {
-        send_response(client_fd, "405 Method Not Allowed", "text/html", "<h1>Método não permitido</h1>");
+        send_response(client_fd, "405 Method Not Allowed", "text/html", "<h1>Metodo nao permitido</h1>");
         close(client_fd);
         return;
     }
@@ -109,7 +109,7 @@ void handle_client(int client_fd, const char *base_dir) {
     printf("Full path: %s\n", full_path);
     struct stat path_stat;
     if (stat(full_path, &path_stat) != 0) {
-        send_response(client_fd, "404 Not Found", "text/html", "<h1>Arquivo não encontrado</h1>");
+        send_response(client_fd, "404 Not Found", "text/html", "<h1>Arquivo nao encontrado</h1>");
     } else if (S_ISDIR(path_stat.st_mode)) {
         // Se for diretório, tenta servir index.html
         char index_path[2060];
