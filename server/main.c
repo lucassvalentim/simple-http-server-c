@@ -27,24 +27,43 @@ void send_response(int client_fd, const char *status, const char *content_type, 
 }
 
 void send_file(int client_fd, const char *path) {
-    FILE *file = fopen(path, "r");
+    FILE *file = fopen(path, "rb");
     if (!file) {
         send_response(client_fd, "404 Not Found", "text/html", "<h1>404 - Arquivo nao encontrado</h1>");
         return;
+    }
+
+    // Detecta tipo do arquivo pela extensao
+    const char *ext = strrchr(path, '.');
+    const char *content_type = "text/plain"; // default
+
+    if (ext) {
+        if (strcmp(ext, ".html") == 0 || strcmp(ext, ".htm") == 0)
+            content_type = "text/html";
+        else if (strcmp(ext, ".png") == 0)
+            content_type = "image/png";
+        else if (strcmp(ext, ".jpg") == 0 || strcmp(ext, ".jpeg") == 0)
+            content_type = "image/jpeg";
+        else if (strcmp(ext, ".gif") == 0)
+            content_type = "image/gif";
+        else if (strcmp(ext, ".pdf") == 0)
+            content_type = "application/pdf";
     }
 
     char header[BUFFER_SIZE];
     char buffer[BUFFER_SIZE];
     size_t bytes_read;
 
-    // Envia cabeçalho HTTP
+    // Cabeçalho HTTP com content-type dinâmico
     snprintf(header, sizeof(header),
-             "HTTP/1.1 200 OK\r\n"
-             "Content-Type: text/html\r\n"
-             "Connection: close\r\n\r\n");
+        "HTTP/1.1 200 OK\r\n"
+        "Content-Type: %s\r\n"
+        "Connection: close\r\n\r\n",
+        content_type
+    );
     send(client_fd, header, strlen(header), 0);
 
-    // Envia o conteúdo do arquivo
+    // Envia o arquivo
     while ((bytes_read = fread(buffer, 1, sizeof(buffer), file)) > 0) {
         send(client_fd, buffer, bytes_read, 0);
     }
@@ -58,9 +77,19 @@ void send_directory_listing(int client_fd, const char *dir_path) {
         send_response(client_fd, "500 Internal Server Error", "text/html", "<h1>Erro ao abrir diretorio</h1>");
         return;
     }
-
+    
     char body[BUFFER_SIZE * 2];
     strcpy(body, "<html><body><h1>Listagem de arquivos</h1><ul>");
+    
+    const char * filename = strrchr(dir_path, '/');
+    if(filename){
+        filename = filename + 1;
+        if(strlen(filename) == 0){
+            filename = "";
+        }
+    }else{
+        filename = "";
+    }
 
     struct dirent *entry;
     while ((entry = readdir(dir)) != NULL) {
@@ -69,6 +98,8 @@ void send_directory_listing(int client_fd, const char *dir_path) {
             continue;
 
         strcat(body, "<li><a href=\"");
+        strcat(body, filename);
+        strcat(body, "/");
         strcat(body, entry->d_name);
         strcat(body, "\">");
         strcat(body, entry->d_name);
@@ -109,7 +140,7 @@ void handle_client(int client_fd, const char *base_dir) {
     printf("Full path: %s\n", full_path);
     struct stat path_stat;
     if (stat(full_path, &path_stat) != 0) {
-        send_response(client_fd, "404 Not Found", "text/html", "<h1>Arquivo nao encontrado</h1>");
+        send_response(client_fd, "404 Not Found", "text/html", "<h1>404 - Arquivo nao encontrado</h1>");
     } else if (S_ISDIR(path_stat.st_mode)) {
         // Se for diretório, tenta servir index.html
         char index_path[2060];

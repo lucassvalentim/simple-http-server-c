@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação - Lucas Valentim</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #e0e0e0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .container {
+            max-width: 850px;
+            width: 85%;
+            background: rgba(30, 30, 46, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .profile {
+            margin-bottom: 25px;
+        }
+        
+        .profile-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 4px solid rgba(100, 149, 237, 0.4);
+            margin: 0 auto 18px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+            color: #aac8f0;
+        }
+        
+        .name {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(to right, #8e9eab, #eef2f3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .title {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #b0b8d1;
+            font-weight: 300;
+        }
+        
+        .content {
+            background: rgba(40, 40, 62, 0.6);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: left;
+            border-left: 4px solid #6495ed;
+        }
+        
+        .content h2 {
+            font-size: 22px;
+            margin-bottom: 18px;
+            color: #6495ed;
+        }
+        
+        .content p {
+            line-height: 1.6;
+            margin-bottom: 12px;
+            font-size: 16px;
+            color: #c5cae9;
+        }
+        
+        .topics {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 25px;
+        }
+        
+        .topic {
+            background: rgba(50, 50, 80, 0.5);
+            border-radius: 10px;
+            padding: 14px 16px;
+            width: 180px;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(100, 149, 237, 0.2);
+        }
+        
+        .topic:hover {
+            transform: translateY(-5px);
+            background: rgba(60, 60, 90, 0.7);
+            border-color: rgba(100, 149, 237, 0.4);
+        }
+        
+        .topic i {
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #6495ed;
+        }
+        
+        .topic h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #e0e0e0;
+        }
+        
+        .topic p {
+            font-size: 13px;
+            color: #a8b2d1;
+        }
+        
+        .footer {
+            margin-top: 25px;
+            font-size: 14px;
+            color: rgba(200, 200, 220, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 18px;
+        }
+        
+        .institution {
+            font-weight: bold;
+            color: #6495ed;
+        }
+        
+        /* Efeitos de partículas */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(100, 149, 237, 0.4);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                width: 90%;
+            }
+            
+            .name {
+                font-size: 28px;
+            }
+            
+            .title {
+                font-size: 20px;
+            }
+            
+            .content {
+                padding: 18px;
+            }
+            
+            .topic {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Efeito de partículas -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="profile">
+            <div class="profile-img">
+                <i class="fas fa-user"></i>
+            </div>
+            <h1 class="name">Lucas Valentim</h1>
+            <h2 class="title">Trabalho de Redes: Cliente e Servidor HTTP</h2>
+        </div>
+        
+        <div class="content">
+            <h2>Sobre o Trabalho</h2>
+            <p>Este trabalho tem como objetivo explorar os conceitos fundamentais do modelo cliente-servidor no contexto do protocolo HTTP, que é a base da comunicação na World Wide Web.</p>
+            <p>Através desta apresentação, serão abordados os princípios de funcionamento, os componentes envolvidos e as interações que ocorrem entre cliente e servidor durante uma requisição web.</p>
+            
+            <div class="topics">
+                <div class="topic">
+                    <i class="fas fa-laptop-code"></i>
+                    <h3>Cliente HTTP</h3>
+                    <p>Navegadores e aplicações que fazem requisições</p>
+                </div>
+                <div class="topic">
+                    <i class="fas fa-server"></i>
+                    <h3>Servidor HTTP</h3>
+                    <p>Responde às requisições dos clientes</p>
+                </div>
+                <div class="topic">
+                    <i class="fas fa-exchange-alt"></i>
+                    <h3>Protocolo</h3>
+                    <p>Conjunto de regras para comunicação</p>
+                </div>
+                <div class="topic">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Segurança</h3>
+                    <p>HTTPS e proteção de dados</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Trabalho acadêmico para a disciplina de Redes de Computadores</p>
+            <p class="institution">Instituição de Ensino</p>
+        </div>
+    </div>
+
+    <script>
+        // Criar partículas para efeito de fundo
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 25;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Tamanho aleatório
+                const size = Math.random() * 8 + 4;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posição inicial aleatória
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Atraso de animação aleatório
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Inicializar as partículas quando a página carregar
+        window.addEventListener('load', createParticles);
+    </script>
+</body>
+</html>
